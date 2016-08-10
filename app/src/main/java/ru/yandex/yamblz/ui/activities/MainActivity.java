@@ -1,8 +1,18 @@
 package ru.yandex.yamblz.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.transition.ChangeBounds;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,6 +27,7 @@ public class MainActivity extends BaseActivity {
 
     @Inject @Named(DeveloperSettingsModule.MAIN_ACTIVITY_VIEW_MODIFIER)
     ViewModifier viewModifier;
+    private final Random rnd = new Random();
 
     @SuppressLint("InflateParams") // It's okay in our case.
     @Override
@@ -26,11 +37,24 @@ public class MainActivity extends BaseActivity {
 
         setContentView(viewModifier.modify(getLayoutInflater().inflate(R.layout.activity_main, null)));
 
+        Button btnGo = (Button) findViewById(R.id.btnGo);
+        btnGo.setOnClickListener(v -> {
+            showContent();
+        });
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.main_frame_layout, new ContentFragment())
                     .commit();
         }
+    }
+
+    private void showContent() {
+        int color = Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
+        ContentFragment fragment = ContentFragment.newInstance(color);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.main_frame_layout, fragment)
+                .commit();
     }
 }
