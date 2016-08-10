@@ -13,6 +13,13 @@
 
         <include layout="@layout/toolbar" />
 
+        <Button
+            android:text="go"
+            android:id="@+id/btnGo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"/>
+
         <FrameLayout
             android:id="@+id/main_frame_layout"
             android:layout_width="match_parent"

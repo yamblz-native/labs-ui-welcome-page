@@ -44,7 +44,7 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    private boolean isFragmentAlive() {
+    public boolean isFragmentAlive() {
         return getActivity() != null && isAdded() && !isDetached() && getView() != null && !isRemoving();
     }
 
